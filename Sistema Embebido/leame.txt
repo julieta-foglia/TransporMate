@@ -1,0 +1,1 @@
+En esta carpeta se encuentra el código del sistema embebido del proyecto.
