@@ -1,3 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TransporMate</string>
+
+    <string name="app_name">AndroBluetooth</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="text_bluetooth_off">Bluetooth Deshabilitado</string>
+    <string name="text_bluetooth_on">Bluetooth Habilitado</string>
+
+    <string name="text_enable">Activar</string>
+    <string name="text_disable">Desactivar</string>
+
+    <string name="text_view_paired">Dispositivos emparejados</string>
+    <string name="text_scan_devices">Buscar dispositivos</string>
+    <string name="text_stop_scan">Buscar dispositivos</string>
+
+    <string name="text_list_paired_devices">Dispositivos emparejados</string>
+    <string name="text_list_devices">Lista de dispositivos</string>
+
+    <string name="text_pair">Emparejar</string>
+
 </resources>
