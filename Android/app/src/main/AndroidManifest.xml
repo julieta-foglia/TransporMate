@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mate.transpor.transpormate">
+package="com.mate.transpor.transpormate.bluetooth"
+android:versionCode="1"
+android:versionName="1.0.0">
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"></application>
+<uses-sdk
+    android:minSdkVersion="14"
+    android:targetSdkVersion="21" />
+
+<!--- Aca se indican los permisos que va a necesitar la aplicacion -->
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+<application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+
+    <!--- Defino la activity Principal -->
+    <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+
+    <!--- Defino la activity con el listado de dispositivos de Bluethoot encontrados -->
+    <activity
+        android:name=".DeviceListActivity"
+        android:label="@string/app_name">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+        </intent-filter>
+    </activity>
+
+    <!--- Defino la activity que se comunica, transfierendo datos de los sensores, con Arduino -->
+    <activity android:name=".activity_comunicacion"></activity>
+
+</application>
 
 </manifest>
