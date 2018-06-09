@@ -1,6 +1,7 @@
-package net.londatiga.android.bluetooth;
+package com.mate.transpor.transpormate.bluetooth;
 
 
+import java.io.Console;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 

@@ -1,4 +1,4 @@
-package net.londatiga.android.bluetooth;
+package com.mate.transpor.transpormate.bluetooth;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;

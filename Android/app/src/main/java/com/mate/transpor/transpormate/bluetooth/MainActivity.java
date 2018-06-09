@@ -1,4 +1,4 @@
-package net.londatiga.android.bluetooth;
+package com.mate.transpor.transpormate.bluetooth;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -250,7 +250,7 @@ public class MainActivity extends Activity
 	private View.OnClickListener btnBuscarListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			mBluetoothAdapter.startDiscovery();
+			boolean result  = mBluetoothAdapter.startDiscovery();
 		}
 	};
 
