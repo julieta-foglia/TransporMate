@@ -8,7 +8,7 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
-    <!--- Aca se indican los permisos que va a necesitar la aplicacion -->
+    <!-- - Aca se indican los permisos que va a necesitar la aplicacion -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -22,7 +22,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <!--- Defino la activity Principal -->
+        <!-- - Defino la activity Principal -->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
 
-        <!--- Defino la activity con el listado de dispositivos de Bluethoot encontrados -->
+        <!-- - Defino la activity con el listado de dispositivos de Bluethoot encontrados -->
         <activity
             android:name=".DeviceListActivity"
             android:label="@string/app_name">
@@ -42,9 +42,9 @@
             </intent-filter>
         </activity>
 
-        <!--- Defino la activity que se comunica, transfierendo datos de los sensores, con Arduino -->
+        <!-- - Defino la activity que se comunica, transfierendo datos de los sensores, con Arduino -->
         <activity android:name=".activity_comunicacion" />
-
+        <activity android:name=".ActivityControles"></activity>
     </application>
 
 </manifest>
