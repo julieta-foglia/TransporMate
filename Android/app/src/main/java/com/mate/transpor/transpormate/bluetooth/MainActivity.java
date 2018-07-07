@@ -33,7 +33,6 @@ public class MainActivity extends Activity
 	private Button btnActivar;
 	private Button btnEmparejar;
 	private Button btnBuscar;
-	private Button btnControles;
 
 	private ProgressDialog mProgressDlg;
 
@@ -53,7 +52,6 @@ public class MainActivity extends Activity
 		btnActivar = (Button) findViewById(R.id.btnActivar);
 		btnEmparejar = (Button) findViewById(R.id.btnEmparejar);
 		btnBuscar = (Button) findViewById(R.id.btnBuscar);
-		btnControles = (Button) findViewById(R.id.btnControles);
 
 		//Se crea un adaptador para podermanejar el bluethoot del celular
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -81,8 +79,6 @@ public class MainActivity extends Activity
 			btnBuscar.setOnClickListener(btnBuscarListener);
 
 			btnActivar.setOnClickListener(btnActivarListener);
-
-			btnControles.setOnClickListener(btnControlesListener);
 
 			//se determina si esta activado el bluethoot
 			if (mBluetoothAdapter.isEnabled())
@@ -284,11 +280,4 @@ public class MainActivity extends Activity
 		}
 	};
 
-	private View.OnClickListener btnControlesListener = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			Intent newIntent = new Intent(MainActivity.this, ActivityControles.class);
-			startActivity(newIntent);
-		}
-	};
 }
