@@ -15,12 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-/**
- * Device list adapter.
- * 
- * @author Lorensius W. L. T <lorenz@londatiga.net>
- *
- */
 public class DeviceListAdapter extends BaseAdapter{
 	private LayoutInflater mInflater;	
 	private List<BluetoothDevice> mData;

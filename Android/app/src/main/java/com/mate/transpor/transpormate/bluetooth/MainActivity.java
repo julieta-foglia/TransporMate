@@ -24,7 +24,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 
 /*********************************************************************************************************
- * Activity Principal de la App. Es la primiera activity que se ejecuta cuando el usuario ingresa a la App
+ * Activity Principal de la App. Es la primera activity que se ejecuta cuando el usuario ingresa a la App
  **********************************************************************************************************/
 
 public class MainActivity extends Activity
@@ -53,16 +53,16 @@ public class MainActivity extends Activity
 		btnEmparejar = (Button) findViewById(R.id.btnEmparejar);
 		btnBuscar = (Button) findViewById(R.id.btnBuscar);
 
-		//Se crea un adaptador para podermanejar el bluethoot del celular
+		//Se crea un adaptador para poder manejar el bluethoot del celular
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-		//Se Crea la ventana de dialogo que indica que se esta buscando dispositivos bluethoot
+		//Se Crea la ventana de dialogo que indica que se esta buscando dispositivos bluetooth
 		mProgressDlg = new ProgressDialog(this);
 
 		mProgressDlg.setMessage("Buscando dispositivos...");
 		mProgressDlg.setCancelable(false);
 
-		//se asocia un listener al boton cancelar para la ventana de dialogo ue busca los dispositivos bluethoot
+		//se asocia un listener al boton cancelar para la ventana de dialogo que busca los dispositivos bluethoot
 		mProgressDlg.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", btnCancelarDialogListener);
 
 		//se determina si existe bluethoot en el celular

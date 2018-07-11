@@ -451,7 +451,6 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                     String readMessage = new String(buffer, 0, bytes);
                     //se muestran en el layout de la activity, utilizando el handler del hilo
                     // principal antes mencionado
-
                     //message.setter(readMessage);
 
                     bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
