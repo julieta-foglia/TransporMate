@@ -24,6 +24,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Locale;
 import java.util.UUID;
 
 /*********************************************************************************************************
@@ -52,7 +53,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
     // String for MAC address del Hc05
     private static String address = null;
 
-    DecimalFormat dosdecimales = new DecimalFormat("###.###");
+    DecimalFormat dosdecimales = new DecimalFormat( "###.###");
 
     SeekBar Leftseek;
     SeekBar Rightseek;
@@ -185,10 +186,10 @@ public class activity_comunicacion extends Activity implements SensorEventListen
             switch (event.sensor.getType()) {
                 case Sensor.TYPE_ACCELEROMETER:
                     //if ((event.values[0] > 15) || (event.values[1] > 15) || (event.values[2] > 15)) {
-                        //EnviarMensajeDetener();
+                    //EnviarMensajeDetener();
                     //    mConnectedThread.write( String.valueOf("u"));
                     //}
-                    if( Float.parseFloat(dosdecimales.format(event.values[0])) > 7 ){
+                    if( event.values[0] > 7 ){
                         //EnviarMensajeRetroceder();
                         if(EstaAvanzando){
                             EstaAvanzando = false;
@@ -196,7 +197,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                         }
                     }
 
-                    if( Float.parseFloat(dosdecimales.format(event.values[0])) < 3){
+                    if( event.values[0] < 3){
                         //EnviarMensajeAvanzar();
                         if(!EstaAvanzando){
                             EstaAvanzando = true;
@@ -384,12 +385,17 @@ public class activity_comunicacion extends Activity implements SensorEventListen
     /*** Manejo de Sensores ***/
     protected void Ini_Sensores()
     {
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),   SensorManager.SENSOR_DELAY_NORMAL);
-        //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),     SensorManager.SENSOR_DELAY_NORMAL);
-        //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR), SensorManager.SENSOR_DELAY_NORMAL);
-        //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),  SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),       SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),           SensorManager.SENSOR_DELAY_FASTEST);
+        try {
+            mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+            //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),     SensorManager.SENSOR_DELAY_NORMAL);
+            //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR), SensorManager.SENSOR_DELAY_NORMAL);
+            //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),  SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY), SensorManager.SENSOR_DELAY_FASTEST);
+            mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_FASTEST);
+        }
+        catch (Exception e){
+            Log.e( "Error botton", e.getMessage());
+        }
 }
 
     private void Parar_Sensores()
