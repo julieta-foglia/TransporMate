@@ -109,7 +109,7 @@ public class DeviceListActivity extends Activity
             else
             {
 
-                //Si no esta emparejado,quiere decir que se selecciono emparjar y entonces se le empareja
+                //Si no esta emparejado,quiere decir que se selecciono emparejar y entonces se le empareja
                 showToast("Emparejando");
                 posicionListBluethoot = position;
                 pairDevice(device);

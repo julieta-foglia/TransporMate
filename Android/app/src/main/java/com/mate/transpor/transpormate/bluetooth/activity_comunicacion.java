@@ -203,7 +203,6 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                             EstaAvanzando = true;
                             mConnectedThread.write( String.valueOf("w"));
                         }
-
                     }
                     break;
                 case Sensor.TYPE_PROXIMITY:
@@ -219,7 +218,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                     }
                     break;
                 case Sensor.TYPE_LIGHT :
-                    if( Float.parseFloat(dosdecimales.format(event.values[0])) < 2 )
+                    if(event.values[0] < 2 )
                     {
                         //Detener motores
                         mConnectedThread.write( String.valueOf("u"));
@@ -355,7 +354,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
         return  device.createRfcommSocketToServiceRecord(BTMODULEUUID);
     }
 
-    //Handler que sirve que permite mostrar datos en el Layout al hilo secundario
+    //Handler que permite mostrar datos en el Layout al hilo secundario
     private Handler Handler_Msg_Hilo_Principal ()
     {
         return new Handler() {
@@ -369,6 +368,28 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                     recDataString.append(readMessage);
                     int endOfLineIndex = recDataString.indexOf("\r\n");
 
+                    if(readMessage.contains("D")){
+                        Rightseek.setEnabled(false);
+                        Leftseek.setEnabled(false);
+                        Rightseek.setProgress(3);
+                        Leftseek.setProgress(3);
+                        if(SensoresActivados){
+                            Parar_Sensores();
+                            //Envio mensaje detener autito.
+                            mConnectedThread.write( String.valueOf("u"));
+                        }
+                    }
+                    if(readMessage.contains("H")){
+                        if(SensoresActivados)
+                            Ini_Sensores();
+                        else{
+                            Rightseek.setEnabled(true);
+                            Leftseek.setEnabled(true);
+                        }
+                    }
+                    if(readMessage.contains("T")){
+                        showToast("Temperatura correcta");
+                    }
                     //cuando recibo toda una linea la muestro en el layout
                     if (endOfLineIndex > 0)
                     {
@@ -451,7 +472,6 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                     String readMessage = new String(buffer, 0, bytes);
                     //se muestran en el layout de la activity, utilizando el handler del hilo
                     // principal antes mencionado
-                    //message.setter(readMessage);
 
                     bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
                 } catch (IOException e) {
