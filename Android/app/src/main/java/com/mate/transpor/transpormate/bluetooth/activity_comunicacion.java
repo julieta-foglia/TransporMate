@@ -36,7 +36,36 @@ public class activity_comunicacion extends Activity implements SensorEventListen
 {
     Button btnActivarSensores;
     Handler bluetoothIn;
-    final int handlerState = 0; //used to identify handler message
+    final int handlerState = 0; //Utilizado para identificar el Handler Message
+
+    //COMANDOS RUEDA IZQ
+    final String IZQ_RETROCEDER_VEL_MAX = "a";
+    final String IZQ_RETROCEDER_VEL_TRESCUARTOS = "b";
+    final String IZQ_RETROCEDER_VEL_MEDIA = "c";
+    final String IZQ_DETENER = "e";
+    final String IZQ_AVANZAR_VEL_MEDIA = "g";
+    final String IZQ_AVANZAR_VEL_TRESCUARTOS = "h";
+    final String IZQ_AVANZAR_VEL_MAX = "i";
+
+    //COMANDOS RUEDA DER
+    final String DER_RETROCEDER_VEL_MAX = "j";
+    final String DER_RETROCEDER_VEL_TRESCUARTOS = "k";
+    final String DER_RETROCEDER_VEL_MEDIA = "l";
+    final String DER_DETENER = "n";
+    final String DER_AVANZAR_VEL_MEDIA = "p";
+    final String DER_AVANZAR_VEL_TRESCUARTOS = "q";
+    final String DER_AVANZAR_VEL_MAX = "r";
+
+    //COMANDOS UTILIZADOS POR LOS SENSORES
+    final String AVANZAR_MOTORES = "w";
+    final String RETROCEDER_MOTORES = "v";
+    final String DETENER_MOTORES = "u";
+    final String ENCENDER_LED = "x";
+    final String APAGAR_LED = "y";
+    final String HABILITAR_CONTROLES = "H";
+    final String DESHABILITAR_CONTROLES = "D";
+    final String TEMPERATURA_CORRECTA = "T";
+
 
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
@@ -53,6 +82,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
     // String for MAC address del Hc05
     private static String address = null;
 
+    //mascara para convertir en x,yyy a los valores recibidos por los sensores del android
     DecimalFormat dosdecimales = new DecimalFormat( "###.###");
 
     SeekBar Leftseek;
@@ -73,8 +103,8 @@ public class activity_comunicacion extends Activity implements SensorEventListen
         //obtengo el adaptador del bluethoot
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        //defino el Handler de comunicacion entre el hilo Principal  el secundario.
-        //El hilo secundario va a mostrar informacion al layout atraves utilizando indeirectamente a este handler
+        //defino el Handler de comunicacion entre el hilo Principal y el secundario.
+        //El hilo secundario va a mostrar informacion al layout atraves de utilizar indeirectamente a este handler
         bluetoothIn = Handler_Msg_Hilo_Principal();
 
         //defino los handlers para el boton Activar Sensor, y cambios en la barra de controles.
@@ -92,34 +122,24 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                 // TODO Auto-generated method stub
             }
 
-            // a - negativo maximo 0
-            // b - negativo tres cuartos 1
-            // c - negativo medio 2
-            // e - detenido 4
-            // g - positivo medio 6
-            // h - positivo tres cuartos 7
-            // i - positivo maximo 8
-
-
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
                 // TODO Auto-generated method stub
                 // Enviar msj al bluetooth.
-                //textView.setText(String.valueOf(progress));
                 if(progress == 0)
-                    mConnectedThread.write( String.valueOf("a"));
+                    mConnectedThread.write( String.valueOf(IZQ_RETROCEDER_VEL_MAX));
                 if(progress == 1)
-                    mConnectedThread.write( String.valueOf("b"));
+                    mConnectedThread.write( String.valueOf(IZQ_RETROCEDER_VEL_TRESCUARTOS));
                 if(progress == 2)
-                    mConnectedThread.write( String.valueOf("c"));
+                    mConnectedThread.write( String.valueOf(IZQ_RETROCEDER_VEL_MEDIA));
                 if(progress == 3)
-                    mConnectedThread.write( String.valueOf("e"));
+                    mConnectedThread.write( String.valueOf(IZQ_DETENER));
                 if(progress == 4)
-                    mConnectedThread.write( String.valueOf("g"));
+                    mConnectedThread.write( String.valueOf(IZQ_AVANZAR_VEL_MEDIA));
                 if(progress == 5)
-                    mConnectedThread.write( String.valueOf("h"));
+                    mConnectedThread.write( String.valueOf(IZQ_AVANZAR_VEL_TRESCUARTOS));
                 if(progress == 6)
-                    mConnectedThread.write( String.valueOf("i"));
+                    mConnectedThread.write( String.valueOf(IZQ_AVANZAR_VEL_MAX));
             }
         });
 
@@ -135,32 +155,24 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                 // TODO Auto-generated method stub
             }
 
-            // j - negativo maximo 0
-            // k - negativo tres cuartos 1
-            // l - negativo medio 2
-            // n - detenido 3
-            // p - positivo medio 4
-            // q - positivo tres cuartos 5
-            // r - positivo maximo 6
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
                 // TODO Auto-generated method stub
                 // Enviar msj al bluetooth.
-                //textView2.setText(String.valueOf(progress));
                 if(progress == 0)
-                    mConnectedThread.write( String.valueOf("j"));
+                    mConnectedThread.write( String.valueOf(DER_RETROCEDER_VEL_MAX));
                 if(progress == 1)
-                    mConnectedThread.write( String.valueOf("k"));
+                    mConnectedThread.write( String.valueOf(DER_RETROCEDER_VEL_TRESCUARTOS));
                 if(progress == 2)
-                    mConnectedThread.write( String.valueOf("l"));
+                    mConnectedThread.write( String.valueOf(DER_RETROCEDER_VEL_MEDIA));
                 if(progress == 3)
-                    mConnectedThread.write( String.valueOf("n"));
+                    mConnectedThread.write( String.valueOf(DER_DETENER));
                 if(progress == 4)
-                    mConnectedThread.write( String.valueOf("p"));
+                    mConnectedThread.write( String.valueOf(DER_AVANZAR_VEL_MEDIA));
                 if(progress == 5)
-                    mConnectedThread.write( String.valueOf("q"));
+                    mConnectedThread.write( String.valueOf(DER_AVANZAR_VEL_TRESCUARTOS));
                 if(progress == 6)
-                    mConnectedThread.write( String.valueOf("r"));
+                    mConnectedThread.write( String.valueOf(DER_AVANZAR_VEL_MAX));
             }
         });
 
@@ -185,43 +197,39 @@ public class activity_comunicacion extends Activity implements SensorEventListen
 
             switch (event.sensor.getType()) {
                 case Sensor.TYPE_ACCELEROMETER:
-                    //if ((event.values[0] > 15) || (event.values[1] > 15) || (event.values[2] > 15)) {
-                    //EnviarMensajeDetener();
-                    //    mConnectedThread.write( String.valueOf("u"));
-                    //}
                     if( event.values[0] > 7 ){
-                        //EnviarMensajeRetroceder();
+                        //EnviarMensajeRetroceder
                         if(EstaAvanzando){
                             EstaAvanzando = false;
-                            mConnectedThread.write( String.valueOf("v"));
+                            mConnectedThread.write( String.valueOf(RETROCEDER_MOTORES));
                         }
                     }
 
                     if( event.values[0] < 3){
-                        //EnviarMensajeAvanzar();
+                        //EnviarMensajeAvanzar
                         if(!EstaAvanzando){
                             EstaAvanzando = true;
-                            mConnectedThread.write( String.valueOf("w"));
+                            mConnectedThread.write( String.valueOf(AVANZAR_MOTORES));
                         }
                     }
                     break;
                 case Sensor.TYPE_PROXIMITY:
                     // Si detecta 0 lo represento
                     if (event.values[0] == 0) {
-                        //EnviarMensajeTitilarLuz();
-                        mConnectedThread.write( String.valueOf("x"));
+                        //EnviarMensajeTitilarLuz
+                        mConnectedThread.write( String.valueOf(ENCENDER_LED));
                     }
                     else
                     {
                         //ApagarLed
-                        mConnectedThread.write( String.valueOf("y"));
+                        mConnectedThread.write( String.valueOf(APAGAR_LED));
                     }
                     break;
                 case Sensor.TYPE_LIGHT :
                     if(event.values[0] < 2 )
                     {
                         //Detener motores
-                        mConnectedThread.write( String.valueOf("u"));
+                        mConnectedThread.write( String.valueOf(DETENER_MOTORES));
                     }
                     else {
 
@@ -252,8 +260,6 @@ public class activity_comunicacion extends Activity implements SensorEventListen
     @Override
     protected void onRestart()
     {
-        //Ini_Sensores();
-
         super.onRestart();
     }
 
@@ -262,8 +268,6 @@ public class activity_comunicacion extends Activity implements SensorEventListen
     //socketBluethoot
     public void onResume() {
         super.onResume();
-
-        //Ini_Sensores();
         //Obtengo el parametro, aplicando un Bundle, que me indica la Mac Adress del HC05
         Intent intent=getIntent();
         Bundle extras=intent.getExtras();
@@ -281,7 +285,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
         {
             showToast( "La creacción del Socket fallo");
         }
-        // Establish the Bluetooth socket connection.
+        // Establecemos la conexión con el socket
         try
         {
             btSocket.connect();
@@ -294,7 +298,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
             }
             catch (IOException e2)
             {
-                //insert code to deal with this
+
             }
         }
 
@@ -303,8 +307,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
         mConnectedThread = new ConnectedThread(btSocket);
         mConnectedThread.start();
 
-        //I send a character when resuming.beginning transmission to check device is connected
-        //If it is not an exception will be thrown in the write method and finish() will be called
+        //Envío de caracter para chequear conexión.
         mConnectedThread.write("x");
     }
 
@@ -317,10 +320,9 @@ public class activity_comunicacion extends Activity implements SensorEventListen
         try
         {
             Parar_Sensores();
-            //Don't leave Bluetooth sockets open when leaving activity
             btSocket.close();
         } catch (IOException e2) {
-            //insert code to deal with this
+
         }
     }
 
@@ -368,7 +370,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                     recDataString.append(readMessage);
                     int endOfLineIndex = recDataString.indexOf("\r\n");
 
-                    if(readMessage.contains("D")){
+                    if(readMessage.contains(DESHABILITAR_CONTROLES)){
                         Rightseek.setEnabled(false);
                         Leftseek.setEnabled(false);
                         Rightseek.setProgress(3);
@@ -376,10 +378,10 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                         if(SensoresActivados){
                             Parar_Sensores();
                             //Envio mensaje detener autito.
-                            mConnectedThread.write( String.valueOf("u"));
+                            mConnectedThread.write( String.valueOf(DETENER_MOTORES));
                         }
                     }
-                    if(readMessage.contains("H")){
+                    if(readMessage.contains(HABILITAR_CONTROLES)){
                         if(SensoresActivados)
                             Ini_Sensores();
                         else{
@@ -387,14 +389,12 @@ public class activity_comunicacion extends Activity implements SensorEventListen
                             Leftseek.setEnabled(true);
                         }
                     }
-                    if(readMessage.contains("T")){
+                    if(readMessage.contains(TEMPERATURA_CORRECTA)){
                         showToast("Temperatura correcta");
                     }
                     //cuando recibo toda una linea la muestro en el layout
                     if (endOfLineIndex > 0)
                     {
-                        //String dataInPrint = recDataString.substring(0, endOfLineIndex);
-                        //txtPotenciometro.setText(dataInPrint);
                         recDataString.delete(0, recDataString.length());
                     }
                 }
@@ -408,9 +408,6 @@ public class activity_comunicacion extends Activity implements SensorEventListen
     {
         try {
             mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-            //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),     SensorManager.SENSOR_DELAY_NORMAL);
-            //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR), SensorManager.SENSOR_DELAY_NORMAL);
-            //mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),  SensorManager.SENSOR_DELAY_NORMAL);
             mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY), SensorManager.SENSOR_DELAY_FASTEST);
             mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_FASTEST);
         }
@@ -447,7 +444,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
 
             try
             {
-                //Create I/O streams for connection
+                //Creo I/O para la conexión
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
             } catch (IOException e) { }
@@ -459,7 +456,7 @@ public class activity_comunicacion extends Activity implements SensorEventListen
         //metodo run del hilo, que va a entrar en una espera activa para recibir los msjs del HC05
         public void run()
         {
-            byte[] buffer = new byte[800000];
+            byte[] buffer = new byte[100];
             int bytes;
 
             //el hilo secundario se queda esperando mensajes del HC05
@@ -483,11 +480,10 @@ public class activity_comunicacion extends Activity implements SensorEventListen
 
         //write method
         public void write(String input) {
-            byte[] msgBuffer = input.getBytes();           //converts entered String into bytes
+            byte[] msgBuffer = input.getBytes();           //Convierto el string en bytes
             try {
-                mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream
+                mmOutStream.write(msgBuffer);                //Envío los bytes al bluetooth
             } catch (IOException e) {
-                //if you cannot write, close the application
                 showToast("La conexion fallo");
                 finish();
 
